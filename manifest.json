@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Claude IP Risk Detector",
+  "version": "1.0.0",
+  "description": "Detect IP risk factors that could lead to Claude account bans",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://ipinfo.io/*",
+    "https://ip-api.com/*",
+    "http://ip-api.com/*",
+    "https://ping0.cc/*",
+    "http://ping0.cc/*",
+    "https://scamalytics.com/*",
+    "https://api.ipify.org/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude IP Risk Detector</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Claude IP Risk Detector</h1>
+      <p class="subtitle">检测 IP 风险，保障账号安全</p>
+    </header>
+
+    <div id="settings-section" class="section">
+      <h2>API Keys 配置</h2>
+      <div class="api-input">
+        <label for="ipinfo-key">ipinfo.io Key</label>
+        <input type="text" id="ipinfo-key" placeholder="Enter your ipinfo.io API key">
+      </div>
+      <div class="api-input">
+        <label for="ipqs-key">IPQualityScore Key</label>
+        <input type="text" id="ipqs-key" placeholder="Enter your IPQS API key">
+      </div>
+      <div class="api-input">
+        <label for="scamalytics-key">Scamalytics Key</label>
+        <input type="text" id="scamalytics-key" placeholder="Enter your Scamalytics API key">
+      </div>
+      <button id="save-keys" class="btn-secondary">保存 Keys</button>
+      <p id="save-status" class="status"></p>
+    </div>
+
+    <div id="result-section" class="section" style="display: none;">
+      <div id="risk-level" class="risk-level">
+        <span id="risk-icon"></span>
+        <span id="risk-label"></span>
+      </div>
+      <p id="risk-reason" class="risk-reason"></p>
+
+      <div class="details">
+        <div class="detail-item">
+          <span class="detail-label">IP 地址</span>
+          <span id="ip-address" class="detail-value"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">IP 类型</span>
+          <span id="ip-type" class="detail-value"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">风险评分</span>
+          <span id="risk-score" class="detail-value"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">所属地区</span>
+          <span id="ip-location" class="detail-value"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">IDC/数据中心</span>
+          <span id="is-idc" class="detail-value"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">DNS 泄露</span>
+          <span id="dns-leak" class="detail-value"></span>
+        </div>
+      </div>
+
+      <div id="dns-servers" class="dns-servers" style="display: none;"></div>
+      <div id="warnings" class="warnings"></div>
+
+      <div id="risk-guide" class="risk-guide">
+        <h3>风险等级参考</h3>
+        <div class="guide-item safe">✅ 安全 (0-25) - 适合使用 Claude</div>
+        <div class="guide-item caution">⚠️ 注意 (26-50) - 存在轻度风险</div>
+        <div class="guide-item risky">⚠️ 警告 (51-75) - 建议切换节点</div>
+        <div class="guide-item high">❌ 高危 (76-100) - 极易触发封号</div>
+      </div>
+    </div>
+
+    <div id="loading" class="loading" style="display: none;">
+      <div class="spinner"></div>
+      <p>检测中...</p>
+    </div>
+
+    <div id="error" class="error" style="display: none;"></div>
+
+    <button id="check-btn" class="btn-primary">立即检测</button>
+
+    <footer>
+      <p>仅检测 IP 风险，不访问 Claude</p>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
