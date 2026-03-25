@@ -496,6 +496,24 @@ function displayResults(result) {
     document.getElementById('dns-leak').textContent = '未检测';
   }
 
+  const lastCheck = result.lastCheck;
+  const currentCountry = ping0Data?.country || ipData?.country || 'N/A';
+  if (lastCheck && lastCheck.country && lastCheck.country !== 'N/A' && currentCountry !== 'N/A') {
+    if (lastCheck.country !== currentCountry) {
+      const hoursSince = (Date.now() - lastCheck.timestamp) / (1000 * 60 * 60);
+      const daysSince = Math.floor(hoursSince / 24);
+      const timeAgo = daysSince > 0 ? `${daysSince}天前` : `${Math.floor(hoursSince)}小时前`;
+      document.getElementById('geo-jump').textContent = `${lastCheck.country} → ${currentCountry}`;
+      const geoHistoryEl = document.getElementById('geo-history');
+      geoHistoryEl.innerHTML = `<div class="geo-history">上次检测: ${lastCheck.country} (${timeAgo})<br>本次检测: ${currentCountry}<br>检测到地区切换，请注意账号风险</div>`;
+      geoHistoryEl.style.display = 'block';
+    } else {
+      document.getElementById('geo-jump').textContent = '未切换 ✓';
+    }
+  } else {
+    document.getElementById('geo-jump').textContent = '首次检测';
+  }
+
   const warningsEl = document.getElementById('warnings');
   if (reasons.length > 0) {
     warningsEl.innerHTML = reasons.map(r => `<div class="warning-item">${r}</div>`).join('');
